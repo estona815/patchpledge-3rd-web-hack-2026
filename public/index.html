@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8faff">
+  <title>PatchPledge — fund the fix</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <div><div class="wordmark">Patch<span>Pledge</span></div><div class="network">LOCAL EVM <span>·</span> CHAIN 1337</div></div>
+      <div class="demo-note"><strong>LOCAL DEMO ONLY</strong><span>Real contract transactions on an ephemeral local Ethereum chain. No mainnet funds.</span></div>
+    </header>
+    <main class="grid">
+      <div class="primary">
+        <section class="hero"><div class="eyebrow"><span class="dot"></span> OPEN SOURCE · ON CHAIN</div><h1>Fund the fix.<br><em>Prove the work.</em></h1><p>Back an issue with escrowed demo ETH. Two independent reviewers release payment when the work is done.</p></section>
+        <section class="panel create">
+          <div class="section-heading"><div><div class="kicker">01 / START HERE</div><h2>Open a bounty</h2></div><span class="tag">SPONSOR</span></div>
+          <form id="open-form">
+            <label for="task">Task description</label><textarea id="task" maxlength="300" required placeholder="Describe the issue, expected fix, and acceptance criteria..."></textarea>
+            <div class="form-row"><div><label for="amount">Amount <small>(demo ETH)</small></label><input id="amount" type="number" min="0.000001" max="0.999999" step="0.000001" value="0.5" required></div><div><label for="deadline">Deadline <small>(local minutes)</small></label><select id="deadline"><option value="300">5 minutes</option><option value="600" selected>10 minutes</option><option value="1800">30 minutes</option><option value="3600">60 minutes</option></select></div></div>
+            <button class="button primary-button" type="submit">Lock bounty <span>↗</span></button>
+          </form>
+        </section>
+        <section class="panel bounty-panel">
+          <div class="section-heading"><div><div class="kicker">02 / FOLLOW THE FUNDS</div><h2>Active bounty</h2></div><span class="tag" id="status-tag">WAITING</span></div>
+          <div id="empty" class="empty">No bounty yet. Open one above to put demo ETH into the contract.</div>
+          <div id="bounty" hidden>
+            <p class="task-copy" id="task-copy"></p>
+            <div class="facts"><div><span>TASK HASH</span><code id="task-hash"></code></div><div><span>ESCROW</span><strong id="escrow"></strong></div><div><span>DEADLINE</span><strong id="due"></strong></div><div><span>EVIDENCE HASH</span><code id="proof-hash"></code></div></div>
+            <div class="steps" id="steps"></div>
+            <div class="evidence-entry"><label for="proof">Work evidence</label><div class="evidence-input"><input id="proof" placeholder="GitHub commit URL or proof of work"><button id="submit-proof" class="button primary-button" type="button">Submit evidence</button></div></div>
+            <div class="actions"><button id="approve-a" class="button outline" type="button">Approve as A</button><button id="approve-b" class="button outline" type="button">Approve as B</button><button id="refund" class="button outline" type="button">Refund after expiry</button></div>
+          </div>
+        </section>
+        <div class="footer-note">The task and evidence text stay in this server's memory. Their Keccak-256 hashes are stored by the smart contract. Reloading the server resets this entire demo chain.</div>
+      </div>
+      <aside class="sidebar">
+        <section class="ledger"><div class="section-heading"><div><div class="kicker">LIVE FROM THE CONTRACT</div><h2>On-chain activity</h2></div><span class="live-dot"></span></div><div class="table-wrap"><table><thead><tr><th>TX HASH</th><th>ACTION</th><th>BLOCK</th></tr></thead><tbody id="activity"><tr><td colspan="3">Transactions appear here.</td></tr></tbody></table></div></section>
+        <section class="balance"><div class="kicker">ESCROW HELD</div><strong id="balance">0.0 <small>ETH</small></strong><div class="address-label">CONTRACT <code id="contract"></code></div></section>
+        <section class="participants"><div class="kicker">DEMO PARTICIPANTS</div><div id="roles"></div></section>
+        <section class="explainer"><div class="kicker">HOW IT WORKS</div><p><b>1.</b> Sponsor locks demo ETH against a task hash.<br><b>2.</b> Worker submits a proof hash.<br><b>3.</b> Both named reviewers approve, triggering payment. If the deadline passes first, the sponsor can refund.</p><button id="advance" type="button">Advance local clock by 10 minutes ↗</button></section>
+      </aside>
+    </main>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
